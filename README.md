@@ -14,7 +14,7 @@ Pour permettre à votre chargé de TD de suivre votre travail sur ce projet :
     projet avec l’accès _Developer_,
 -   éditez ce fichier pour indiquez vos noms (membres du binôme) et
     supprimer ce paragraphe d’instructions,
--   effectuez votre travail de TP dans le fichier prolog joint.
+-   effectuez votre travail de TP dans les fichiers coq joints.
 
 # Binôme
 
