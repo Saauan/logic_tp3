@@ -1,39 +1,94 @@
 Lemma hilbertS (A B C : Prop) :  (A -> B -> C) -> (A -> B) -> A -> C.
 Proof.
+intro abc.
+intro ab.
+intro a.
+apply abc.
+  - exact a.
+  - apply ab.
+    exact a.
 Qed.
 
 Lemma q2 (A B : Prop) :  A -> (B -> A).
 Proof.
+intro a.
+intro b.
+exact a.
 Qed.
 
 Lemma q3 (A B : Prop) :  A -> (~A -> B).
 Proof.
+intro a.
+intro na.
+destruct na.
+exact a.
+Qed.
+
+Lemma q31 (A B : Prop) :  A -> (~A -> B).
+Proof.
+intro a.
+intro na.
+exfalso.
+apply na.
+exact a.
 Qed.
 
 Lemma q4 (A B C : Prop) :  (A -> B) -> ((B -> C) -> (A -> C)).
 Proof.
+intro ab.
+intro bc.
+intro a.
+apply bc.
+apply ab.
+exact a.
 Qed.
 
 Lemma q5 (A B : Prop) :  (A -> B) -> (~B -> ~A).
 Proof.
+intro ab.
+intro nb.
+intro a.
+apply nb.
+apply ab.
+exact a.
 Qed.
 
 Require Import Classical.
 
+(*
 Lemma tiersexclus (A : Prop) : A \/ ~A.
 Proof.
+apply NNPP.
+intro a.
+apply a.
+apply NNPP.
 Qed.
+*)
 
 Lemma bottom_c (A : Prop) : (~A -> False) -> A.
 Proof.
+intro afalse.
+apply NNPP.
+intro na.
+apply afalse.
+exact na.
 Qed.
 
 Lemma q8 (A B : Prop) : (~B -> ~A) -> (A -> B).
 Proof.
+intro nbna.
+intro a.
+apply NNPP.
+intro nb.
+apply nbna.
+- exact nb.
+- exact a.
+
 Qed.
 
 Lemma q9 (A : Prop) : ~~A <-> A.
 Proof.
+
 Qed.
 
 Lemma q10 (A : Prop) :  (A /\ ~A) <-> False.
