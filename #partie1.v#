@@ -286,14 +286,20 @@ Qed.
 
 Lemma q19 (X : Type) : forall (x1 x2 : X), x1 = x2 -> x2 = x1.
 Proof.
-intro x1_0.
-intro x2_0.
+intro x1.
+intro x2.
 intro x1_eq_x2.
-reflexivity x1_0.
-
+rewrite x1_eq_x2.
+reflexivity.
 Qed.
 
 Lemma q20 (X : Type) : forall (x1 x2 x3 : X), x1 = x2 /\ x2 = x3 -> x1 = x3.
 Proof.
+intros x1 x2 x3.
+intro H.
+destruct H as [x1_eq_x2 x2_eq_x3].
+rewrite x1_eq_x2.
+rewrite x2_eq_x3.
+reflexivity.
 Qed.
 
