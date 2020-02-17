@@ -289,11 +289,19 @@ Proof.
 intro x1_0.
 intro x2_0.
 intro x1_eq_x2.
-reflexivity x1_0.
-
+rewrite x1_eq_x2.
+reflexivity.
 Qed.
 
 Lemma q20 (X : Type) : forall (x1 x2 x3 : X), x1 = x2 /\ x2 = x3 -> x1 = x3.
 Proof.
+intro x1_0.
+intro x2_0.
+intro x3_0.
+intro x1223.
+destruct x1223 as [x12 x23].
+rewrite x12.
+rewrite x23.
+reflexivity.
 Qed.
 
