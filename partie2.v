@@ -7,10 +7,13 @@ Definition egal (A : Type) (a a' : A) := forall (P : A -> Prop), P a -> P a'.
 
 Lemma bottom_e (A : Prop) : faux -> A.
 Proof.
+intro f.
+apply f.
 Qed.
 
 Lemma non_intro (A : Prop) : (A -> faux) -> non A.
 Proof.
+
 Qed.
 
 Lemma non_elim (A : Prop) : A -> non A -> faux.
