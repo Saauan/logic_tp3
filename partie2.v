@@ -62,14 +62,32 @@ Qed.
 
 Lemma ou_intro_g (A B : Prop) : A -> ou A B.
 Proof.
+intro a.
+intro x.
+intro a_imp_x.
+intro b_imp_x.
+apply a_imp_x.
+exact a.
 Qed.
 
 Lemma ou_intro_d (A B : Prop) : B -> ou A B.
 Proof.
+intro b.
+intro x.
+intro a_imp_x.
+intro b_imp_x.
+apply b_imp_x.
+exact b.
 Qed.
 
 Lemma ou_elim (A B C : Prop) : ou A B -> (A -> C) -> (B -> C) -> C.
 Proof.
+intro ou_a_b.
+intro a_imp_c.
+intro b_imp_c.
+apply ou_a_b.
+  - exact a_imp_c.
+  - exact b_imp_c. 
 Qed.
 
 Lemma existe_intro (A : Type) (P : A -> Prop) : forall x : A, P x -> existe A P.
