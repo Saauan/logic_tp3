@@ -92,10 +92,23 @@ Qed.
 
 Lemma existe_intro (A : Type) (P : A -> Prop) : forall x : A, P x -> existe A P.
 Proof.
+intro a.
+intro p_a.
+intro x.
+(*Pour tout a, P(a) implique x*)
+intro fa_a_pa_imp_x.
+(*On a a... donc on a x*)
+apply (fa_a_pa_imp_x a).
+(*... donc P(a) est vraie*)
+exact p_a.
 Qed.
 
 Lemma existe_elim (A : Type) (P : A -> Prop) (Q : Prop) : existe A P -> (forall x : A, P x -> Q) -> Q.
 Proof.
+intro ex.
+intro fa.
+apply ex.
+exact fa.
 Qed.
 
 Lemma faux_false : faux <-> False.
