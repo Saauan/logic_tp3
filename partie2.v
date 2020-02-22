@@ -33,14 +33,31 @@ Qed.
 
 Lemma et_intro (A B : Prop) : A -> B -> et A B.
 Proof.
+intro a.
+intro b.
+intro x.
+intro a_imp_b_imp_x.
+apply a_imp_b_imp_x.
+  - now simpl.
+  - now simpl.
 Qed.
 
 Lemma et_elim_g (A B : Prop) : et A B -> A.
 Proof.
+intro et_a_b.
+apply et_a_b.
+intro a.
+intro b.
+exact a.
 Qed.
 
 Lemma et_elim_d (A B : Prop) : et A B -> B.
 Proof.
+intro et_a_b.
+apply et_a_b.
+intro a.
+intro b.
+exact b.
 Qed.
 
 Lemma ou_intro_g (A B : Prop) : A -> ou A B.
