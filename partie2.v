@@ -5,11 +5,13 @@ Definition ou (A B : Prop) := forall (P : Prop), ((A -> P) -> (B -> P) -> P).
 Definition existe (A : Type) (P : A -> Prop) := forall (Q : Prop), (forall a, P a -> Q) -> Q.
 Definition egal (A : Type) (a a' : A) := forall (P : A -> Prop), P a -> P a'.
 
+
 Lemma bottom_e (A : Prop) : faux -> A.
 Proof.
 intro f.
 apply f.
 Qed.
+
 
 Lemma non_intro (A : Prop) : (A -> faux) -> non A.
 Proof.
@@ -31,6 +33,7 @@ apply a_imp_f.
 now simpl.
 Qed.
 
+
 Lemma et_intro (A B : Prop) : A -> B -> et A B.
 Proof.
 intro a.
@@ -42,6 +45,7 @@ apply a_imp_b_imp_x.
   - now simpl.
 Qed.
 
+
 Lemma et_elim_g (A B : Prop) : et A B -> A.
 Proof.
 intro et_a_b.
@@ -51,6 +55,7 @@ intro b.
 exact a.
 Qed.
 
+
 Lemma et_elim_d (A B : Prop) : et A B -> B.
 Proof.
 intro et_a_b.
@@ -59,6 +64,7 @@ intro a.
 intro b.
 exact b.
 Qed.
+
 
 Lemma ou_intro_g (A B : Prop) : A -> ou A B.
 Proof.
@@ -70,6 +76,7 @@ apply a_imp_x.
 exact a.
 Qed.
 
+
 Lemma ou_intro_d (A B : Prop) : B -> ou A B.
 Proof.
 intro b.
@@ -80,6 +87,7 @@ apply b_imp_x.
 exact b.
 Qed.
 
+
 Lemma ou_elim (A B C : Prop) : ou A B -> (A -> C) -> (B -> C) -> C.
 Proof.
 intro ou_a_b.
@@ -89,6 +97,7 @@ apply ou_a_b.
   - exact a_imp_c.
   - exact b_imp_c. 
 Qed.
+
 
 Lemma existe_intro (A : Type) (P : A -> Prop) : forall x : A, P x -> existe A P.
 Proof.
@@ -103,6 +112,7 @@ apply (fa_a_pa_imp_x a).
 exact p_a.
 Qed.
 
+
 Lemma existe_elim (A : Type) (P : A -> Prop) (Q : Prop) : existe A P -> (forall x : A, P x -> Q) -> Q.
 Proof.
 intro ex.
@@ -111,20 +121,74 @@ apply ex.
 exact fa.
 Qed.
 
+
 Lemma faux_false : faux <-> False.
 Proof.
+split.
+  - intro f.
+    apply bottom_e.
+    now simpl.
+  - intro f.
+    now simpl.
 Qed.
+
 
 Lemma non_not (A : Prop) : non A <-> ~A.
 Proof.
+split.
+  - intro na.
+    intro a.
+    apply (non_elim A).
+      * exact a.
+      * exact na.
+  - intro na.
+    apply non_intro.
+    intro a.
+    intro x.
+    destruct na.
+      * exact a.
 Qed.
+
 
 Lemma et_and (A B : Prop) : et A B <-> A /\ B.
 Proof.
+split.
+  - intro et_a_b.
+    split.
+      * apply et_a_b.
+        intro a.
+        intro b.
+        exact a.
+      * apply et_a_b.
+        intro a.
+        intro b.
+        exact b.
+  - intro a_et_b.
+    intro x.
+    destruct a_et_b as [a b].
+    apply et_intro.
+      * exact a.
+      * exact b.
 Qed.
 
 Lemma ou_or (A B : Prop) : ou A B <-> A \/ B.
 Proof.
+split.
+  - intro ou_a_b.
+    apply (ou_elim A B).
+      * exact ou_a_b.
+      * intro a.
+        left.
+        exact a.
+      * intro b.
+        right.
+        exact b. 
+  - intro a_or_b.
+    destruct a_or_b as [a|b].
+      * apply (ou_intro_g A B).
+        exact a.
+      * apply (ou_intro_d A B).
+        exact b.
 Qed.
 
 Lemma existe_exists (A : Type) (P : A -> Prop) : existe A P <-> exists a, P a.
