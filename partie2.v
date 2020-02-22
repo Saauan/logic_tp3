@@ -13,11 +13,22 @@ Qed.
 
 Lemma non_intro (A : Prop) : (A -> faux) -> non A.
 Proof.
-
+intro a_imp_f.
+intro x.
+intro a_imp_f_imp_x.
+apply a_imp_f_imp_x.
+now simpl.
 Qed.
+
 
 Lemma non_elim (A : Prop) : A -> non A -> faux.
 Proof.
+intro a.
+intro na.
+apply na.
+intro a_imp_f.
+apply a_imp_f.
+now simpl.
 Qed.
 
 Lemma et_intro (A B : Prop) : A -> B -> et A B.
