@@ -193,8 +193,29 @@ Qed.
 
 Lemma existe_exists (A : Type) (P : A -> Prop) : existe A P <-> exists a, P a.
 Proof.
+split.
+  - intro ex_a_p.
+    apply (existe_elim A P).
+      * exact ex_a_p.
+      * intro a.
+        intro pa.
+        exists a. (*Obscure...*)
+        exact pa. 
+  - intro ex_a_ap_a.
+    destruct ex_a_ap_a as [a pa].
+    apply (existe_intro A P a).
+    now simpl.
 Qed.
 
 Lemma egal_eq (A : Type) (a a' : A) : egal _ a a' <-> a = a'.
 Proof.
+split.
+  - intro x.
+    apply x.
+    now simpl.
+  - intro y.
+    intro z.
+    intro za.
+    rewrite <- y.
+    exact za.
 Qed.
